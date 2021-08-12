@@ -4,7 +4,8 @@ import ProductContext from "../contexts/ProductContext";
 const Item = (props) => {
   const { removeItem } = useContext(ProductContext);
   const removeItemHandler = () => {
-    removeItem(props.id);
+    console.log(props.idInCart);
+    removeItem(props.idInCart);
   };
 
   return (

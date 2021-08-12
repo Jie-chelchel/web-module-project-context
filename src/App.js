@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { Route } from "react-router-dom";
 import data from "./data";
-
+import useLocalStorage from "./hook/useLocalStorage";
 // Components
 import Navigation from "./components/Navigation";
 import Products from "./components/Products";
@@ -11,18 +11,17 @@ import CartContext from "./contexts/CartContext";
 
 function App() {
   const [products] = useState(data);
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useLocalStorage("cart", []);
 
   const addItem = (item) => {
-    // add the given item to the cart
+    const newItem = { ...item, idInCart: Date.now() };
 
-    setCart([...cart, item]);
+    setCart([...cart, newItem]);
   };
 
   const removeItem = (id) => {
-    // add the given item to the cart
-
-    setCart(cart.filter((item) => item.id !== id));
+    setCart(cart.filter((item) => item.idInCart !== id));
+    // setCart(JSON.parse(window.localStorage.getItem("cart")));
   };
 
   return (
